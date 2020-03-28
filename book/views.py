@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Olaj, Recept, Forgalmazo, Forgalmazas, Hozzavalo
+from .models import Olaj, Recept, Forgalmazo, Forgalmazas, Hozzavalo, Hatas
 
 # Create your views here.
 
@@ -17,8 +17,9 @@ def olaj(request, pk):
 def recept(request, pk):
     if request.user.is_authenticated:
         recept = Recept.objects.get(pk=pk)
-        hozzavalok = recept.hozzavalok.all()
-        hatasok = recept.hatasok.all()
+        hozzavalok = Hozzavalo.objects.filter(recept__id=pk)
+        hatasok = Hatas.objects.filter(recept__id=pk)
+        print(hatasok)
         return render(request, 'book/recept.html', {'recept': recept, 'hatasok': hatasok, 'hozzavalok':hozzavalok})
     else:
         return redirect('/admin/login')
