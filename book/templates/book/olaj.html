@@ -1,15 +1,17 @@
 <html>
     <body>
         <h1>{{olaj.name}}</h1>
-        <img src="{{olaj.kep}}">
+        <img src="{{olaj.kep}}" width="300">
         <p>{{olaj.mese}}</p>
+
+        <h3>Receptek</h3>
         {% for r in receptek %}
-        <h3> <a href="/receptek/{{r.id}}">{{r.name}}</a></h3>
+        <h4> <a href="/receptek/{{r.id}}">{{r.name}}</a></h4>
         {% endfor %}
 
-        <h3>Forgalmazók</h3>
+        <h3>Termékek</h3>
         {% for f in forgalmazok %}
-        <a href="/forgalmazok/{{f.id}}">{{f.termeknev}} {{f.cegnev}} {{f.kiszereles}} {{f.ar}} </a>
+        <a href="/forgalmazok/{{f.id}}">  {{f.termeknev}}  {{f.kiszereles}} {{f.ar}} </a> </br>
         {% endfor %}
 
     </body>

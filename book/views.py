@@ -6,8 +6,15 @@ from .models import Olaj, Recept, Forgalmazo, Forgalmazas, Hozzavalo, Hatas
 def olaj(request, pk):
     if request.user.is_authenticated:
         olaj = Olaj.objects.get(pk=pk)
-        receptek = Recept.objects.filter(hozzavalok__olaj__id=pk)
-        forgalmazok = Forgalmazas.objects.filter(olaj__id=pk) 
+        hozzavalok = Hozzavalo.objects.filter(olaj__id=pk)
+        receptek = set()
+
+        # I'm sure there is a more elegant way to do this, but i can fix that later
+        for h in hozzavalok:
+            for r in Recept.objects.filter(pk=h.recept.id):
+                receptek.add(r)
+        forgalmazok = Forgalmazas.objects.filter(olaj__id=pk)
+
         return render(request, 'book/olaj.html', {'olaj': olaj,
                                                 'receptek': receptek,
                                                 'forgalmazok': forgalmazok})

@@ -1,13 +1,13 @@
 <html>
     <body>
         <h1>{{forgalmazo.name}}</h1>
-        weboldal: <a href="{{forgalmazo.webpage}}">{{forgalmazo.webpage}}</a>
+        weboldal: <a href="https://{{forgalmazo.webpage}}" >{{forgalmazo.webpage}}</a>
         cím: {{forgalmazo.cim}}
         telefon: {{forgalmazo.telefon}}
 
         <h3>Termékek</h3>
         {% for t in termekek %}
-        {{t.termeknev}} {{t.kiszereles}} {{t.ar}}
+        <a href="/olajok/{{t.olaj.id}}">{{t.termeknev}}</a> {{t.kiszereles}} {{t.ar}} </br>
         {% endfor %}
     </body>
 </html>
