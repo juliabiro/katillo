@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 class Hozzavalo(models.Model):
-    recept = models.ForeignKey('Recept', on_delete=None)
     olaj = models.ForeignKey('Olaj', on_delete=None)
     mennyiseg = models.CharField(max_length=200)
 
@@ -21,8 +20,6 @@ class Olaj(models.Model):
     name = models.CharField(max_length=200)
     kep = models.CharField(max_length=200)
     mese = models.TextField()
-    # receptek = models.ManyToManyField(Hozzavalo, through=Hozzavalo.recept)
-    # forgalmazok = models.ManyToManyField(Forgalmazo, through=Forgalmazas.ceg)
 
 class Korosztaly(models.Model):
     name = models.CharField(max_length=200)
@@ -35,6 +32,5 @@ class Hatas(models.Model):
 class Recept(models.Model):
     name = models.CharField(max_length=200)
     notes = models.TextField()
-    # hozzavalok = models.ManyToManyField(Olaj, through=Hozzavalo.olaj)
-    # hatasok = models.ManyToManyField(Hatas)
-
+    hozzavalok = models.ManyToManyField(Hozzavalo)
+    hatasok = models.ManyToManyField(Hatas)
