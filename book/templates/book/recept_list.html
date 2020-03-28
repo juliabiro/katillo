@@ -1,5 +1,8 @@
 <html>
     <body>
-        {{data}}
+        <h1>Receptek</h1>
+        {% for d in data %}
+        <a href="/receptek/{{d.id}}">{{d.name}}</a>
+        {% endfor %}
     </body>
 </html> 
