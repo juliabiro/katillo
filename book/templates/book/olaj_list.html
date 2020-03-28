@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <h1>Olajok</h1>
+
+        {% for d in data %}
+        <h3>{{d.name}}</h3>
+        <img src="{{d.kep}}">
+        <p>{{d.mese}} </p>
+        {% endfor %}
+    </body>
+</html> 

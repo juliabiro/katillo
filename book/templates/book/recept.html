@@ -1,0 +1,18 @@
+<html>
+    <body>
+        <h1>{{recept.name}}</h1>
+
+        <p> {{recept.notes}}</p>
+        <h3> Hatások </h3>
+        {% for h in hatasok %}
+        {{h.name}}
+        {{h.korosztaly}}
+        {{h.megjegyzesek}}
+        {% endfor %}
+
+        <h3>Hozzávalók</h3>
+        {% for h in hozzavalok %}
+        <a href="/olajok/{{h.olaj.id}}">{{h.olaj.name}}</a>  {{h.mennyiseg}}
+        {% endfor %}
+    </body>
+</html>
