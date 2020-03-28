@@ -1,5 +1,8 @@
 <html>
     <body>
-        {{data}}
+        <h3>Termékek</h3>
+        {% for d in data %}
+        <a href="forgalmazok/{{d.id}}"> {{d.ceg}} </a> {{d.termeknev}} {{d.kiszereles}} {{t.ar}} </br>
+        {% endfor %}
     </body>
 </html> 

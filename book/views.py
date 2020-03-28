@@ -32,4 +32,7 @@ def recept_list(request):
 
 def arak_list(request):
     arak_list = Forgalmazas.objects.all()
-    return render(request, 'book/arak_list.html', {'date': arak_list})
+    return render(request, 'book/arak_list.html', {'data': arak_list})
+
+def index(request):
+    return render(request, 'book/index.html', {})
