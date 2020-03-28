@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <h1>{{forgalmazo.name}}</h1>
+        weboldal: <a href="{{forgalmazo.webpage}}">{{forgalmazo.webpage}}</a>
+        cím: {{forgalmazo.cim}}
+        telefon: {{forgalmazo.telefon}}
+
+        <h3>Termékek</h3>
+        {% for t in termekek %}
+        {{t.termeknev}} {{t.kiszereles}} {{t.ar}}
+        {% endfor %}
+    </body>
+</html>

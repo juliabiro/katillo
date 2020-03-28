@@ -6,9 +6,10 @@ from .models import Olaj, Recept, Forgalmazo, Forgalmazas, Hozzavalo
 def olaj(request, pk):
     olaj = Olaj.objects.get(pk=pk)
     receptek = Recept.objects.filter(hozzavalok__olaj__id=pk)
-    forgalmazok = Forgalmazas.objects.filter(olaj__id=pk)
+    forgalmazok = Forgalmazas.objects.filter(olaj__id=pk) 
     return render(request, 'book/olaj.html', {'olaj': olaj,
-                                              'receptek': receptek})
+                                              'receptek': receptek,
+                                              'forgalmazok': forgalmazok})
 
 def recept(request, pk):
     recept = Recept.objects.get(pk=pk)
@@ -16,8 +17,10 @@ def recept(request, pk):
     hatasok = recept.hatasok.all()
     return render(request, 'book/recept.html', {'recept': recept, 'hatasok': hatasok, 'hozzavalok':hozzavalok})
 
-def forgalmazo(request):
-    return render(request, 'book/forgalmazo.html', {})
+def forgalmazo(request, pk):
+    forgalmazo = Forgalmazo.objects.get(pk=pk)
+    termekek = Forgalmazas.objects.filter(ceg__id=pk)
+    return render(request, 'book/forgalmazo.html', {'forgalmazo':forgalmazo, 'termekek': termekek})
 
 def olaj_list(request):
     olaj_list = Olaj.objects.all()

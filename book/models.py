@@ -8,10 +8,12 @@ class Hozzavalo(models.Model):
 class Forgalmazo(models.Model):
     name = models.CharField(max_length=200)
     cim = models.CharField(max_length=200)
+    webpage = models.CharField(max_length=200, default="")
     telefon = models.CharField(max_length=200)
 
 class Forgalmazas(models.Model):
     olaj = models.ForeignKey('Olaj', on_delete=None)
+    termeknev = models.CharField(max_length=200, default="")
     ceg = models.ForeignKey('Forgalmazo', on_delete=None)
     kiszereles = models.CharField(max_length=200)
     ar = models.IntegerField()

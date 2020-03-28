@@ -7,4 +7,5 @@ urlpatterns = [
     path('arak', views.arak_list, name='arak_list'),
     path('olajok/<int:pk>', views.olaj, name='olaj'),
     path('receptek/<int:pk>', views.recept, name='recept'),
+    path('forgalmazok/<int:pk>', views.forgalmazo, name='forgalmazo'),
 ]
