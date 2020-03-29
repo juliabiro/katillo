@@ -6,13 +6,13 @@ class ForgalmazasAdmin(admin.TabularInline):
     fk_name = 'olaj'
     extra=0
 
-class OlajAdmin(admin.ModelAdmin):
-    inlines = [ForgalmazasAdmin]
-
 class HatasAdmin(admin.TabularInline):
     model = Hatas
-    fk_name = 'recept'
+    fk_name = 'olaj'
     extra=0
+
+class OlajAdmin(admin.ModelAdmin):
+    inlines = [ForgalmazasAdmin, HatasAdmin]
 
 class HozzavaloAdmin(admin.TabularInline):
     model = Hozzavalo
@@ -20,7 +20,7 @@ class HozzavaloAdmin(admin.TabularInline):
     extra=0
 
 class ReceptAdmin(admin.ModelAdmin):
-    inlines = [HozzavaloAdmin, HatasAdmin]
+    inlines = [HozzavaloAdmin]
 
 
 class TermekAdmin(admin.TabularInline):
