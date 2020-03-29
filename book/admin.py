@@ -6,6 +6,22 @@ class ForgalmazasAdmin(admin.TabularInline):
     fk_name = 'olaj'
     extra=0
 
+class TermekAdmin(admin.TabularInline):
+    model = Forgalmazas
+    fk_name = 'ceg'
+    extra=0
+
+class ForgalmazoAdmin(admin.ModelAdmin):
+    inlines = [TermekAdmin]
+
+class HozzavaloAdmin(admin.TabularInline):
+    model = Hozzavalo
+    fk_name = 'recept'
+    extra=0
+
+class ReceptAdmin(admin.ModelAdmin):
+    inlines = [HozzavaloAdmin]
+
 class HatasAdmin(admin.TabularInline):
     model = Hatas
     fk_name = 'olaj'
@@ -16,25 +32,19 @@ class KemiaAdmin(admin.TabularInline):
     fk_name = 'olaj'
     extra=0
 
+class TulajdonsagAdmin(admin.TabularInline):
+    model = AltalanosTulajdonsagok
+    fk_name='olaj'
+    extra=0
+
+class TerapiasJavaslatAdmin(admin.TabularInline):
+    model = TerapiasJavaslat
+    fk_name='olaj'
+    extra=0
+
 class OlajAdmin(admin.ModelAdmin):
-    inlines = [ForgalmazasAdmin, HatasAdmin, KemiaAdmin]
+    inlines = [KemiaAdmin, TulajdonsagAdmin, TerapiasJavaslatAdmin, HatasAdmin, ForgalmazasAdmin]
 
-class HozzavaloAdmin(admin.TabularInline):
-    model = Hozzavalo
-    fk_name = 'recept'
-    extra=0
-
-class ReceptAdmin(admin.ModelAdmin):
-    inlines = [HozzavaloAdmin]
-
-
-class TermekAdmin(admin.TabularInline):
-    model = Forgalmazas
-    fk_name = 'ceg'
-    extra=0
-
-class ForgalmazoAdmin(admin.ModelAdmin):
-    inlines = [TermekAdmin]
 # Register your models here.
 admin.site.register(Forgalmazo, ForgalmazoAdmin)
 admin.site.register(Olaj, OlajAdmin)

@@ -77,6 +77,38 @@ class Kemia(models.Model):
         verbose_name = 'Kémia'
         verbose_name_plural = 'Kémia'
 
+class AltalanosTulajdonsagok(models.Model):
+    nev = models.CharField(max_length=200, verbose_name='Név')
+    erosseg = models.IntegerField(verbose_name='erősség')
+    mese = models.TextField(blank=True)
+    olaj = models.ForeignKey('Olaj', on_delete=None)
+    class Meta:
+        verbose_name = 'Áltlalános tulajdonság'
+        verbose_name_plural = 'Általános tulajdonságok'
+
+class TerapiasJavaslat(models.Model):
+    nev = models.CharField(max_length=200, verbose_name='Név')
+    erosseg = models.IntegerField(verbose_name='erősség')
+    mese = models.TextField(blank=True)
+    olaj = models.ForeignKey('Olaj', on_delete=None)
+    class Meta:
+        verbose_name = 'Terápiás javaslat'
+        verbose_name_plural = 'Terápiás javaslatok'
+
+class Hatas(models.Model):
+    KOROSZTALYOK=(('1','1-3'), ( '2', '3-6'), ( '3','6-12' ), ( '4', 'felnőtt' ), ( '5','váarndós' ))
+    name = models.CharField(max_length=200, verbose_name='Hatás')
+    celcsoport =models.CharField(max_length=2,
+                            choices=KOROSZTALYOK,
+                                 default='4', verbose_name='Célcsoport')
+    megjegyzesek = models.TextField(verbose_name='Megjegyzések')
+    olaj = models.ForeignKey('Olaj', on_delete=None)
+    def __str__(self):
+        return self.name +":"+ self.celcsoport
+    class Meta:
+            verbose_name = 'Hatás'
+            verbose_name_plural = 'Hatások'
+
 
 class Olaj(models.Model):
     magyar_nev = models.CharField(max_length=200, verbose_name='Magyar név')
@@ -108,19 +140,6 @@ class Recept(models.Model):
             verbose_name_plural = 'Receptek'
     def __str__(self):
         return self.name
-
-class Hatas(models.Model):
-    KOROSZTALYOK=(('1','1-3'), ( '2', '3-6'), ( '3','6-12' ), ( '4', 'felnőtt' ), ( '5','váarndós' ))
-    name = models.CharField(max_length=200, verbose_name='Hatás')
-    celcsoport =models.CharField(max_length=2,
-                            choices=KOROSZTALYOK,
-                                 default='4', verbose_name='Célcsoport')
-    megjegyzesek = models.TextField(verbose_name='Megjegyzések')
-    olaj = models.ForeignKey('Olaj', on_delete=None)
-    def __str__(self):
-        return self.name +":"+ self.celcsoport
-    class Meta:
-            verbose_name_plural = 'Hatások'
 
 class Hozzavalo(models.Model):
     recept = models.ForeignKey('Recept', on_delete=None)
