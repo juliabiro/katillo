@@ -20,3 +20,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('book.urls')),
 ]
+admin.site.site_header = "Kati illóolajas könyve"
+admin.site.site_title = "Kati illóolajas könyve"
+admin.site.index_title = "Katillo"
