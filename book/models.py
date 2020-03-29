@@ -43,6 +43,41 @@ class Kontraindikacio(models.Model):
     def __str__(self):
         return self.nev
 
+class Kemia_focsoport(models.Model):
+    nev = models.CharField(max_length=200, verbose_name='Név')
+
+    class Meta:
+        verbose_name = 'Kémia főcsoport'
+        verbose_name_plural = 'Kémia főcsoportok'
+
+    def __str__(self):
+        return self.nev
+
+class Kemia_alcsoport(models.Model):
+    nev = models.CharField(max_length=200, verbose_name='Név')
+
+    focsoport = models.ForeignKey('Kemia_focsoport', on_delete=None, verbose_name='Kémia főcsoport', default=None)
+
+
+    class Meta:
+        verbose_name = 'Kémia alcsoport'
+        verbose_name_plural = 'Kémia alcsoportok'
+
+    def _focsoport(self):
+        return self.focsoport.nev
+    def __str__(self):
+        return self.nev+" ("+self._focsoport()+")"
+
+class Kemia(models.Model):
+    alcsoport = models.ForeignKey('Kemia_alcsoport', on_delete=None, verbose_name='Kémia')
+    olaj = models.ForeignKey('Olaj', on_delete=None)
+    szazalek = models.IntegerField(blank=True)
+
+    class Meta:
+        verbose_name = 'Kémia'
+        verbose_name_plural = 'Kémia'
+
+
 class Olaj(models.Model):
     magyar_nev = models.CharField(max_length=200, verbose_name='Magyar név')
     latin_nev = models.CharField(max_length=200, blank=True, verbose_name='Latin név')
@@ -54,6 +89,7 @@ class Olaj(models.Model):
                             default='1', verbose_name='Típus')
     JEGYEK = (('1','FEJJEGY'),('2','SZIVJEGY'),('3','Alapillat'))
     jegy = models.CharField(max_length=2, choices=JEGYEK, blank=True)
+
     class Meta:
             verbose_name_plural = 'Összetevők'
             verbose_name = 'Összetevő'

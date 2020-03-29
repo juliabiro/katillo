@@ -11,8 +11,13 @@ class HatasAdmin(admin.TabularInline):
     fk_name = 'olaj'
     extra=0
 
+class KemiaAdmin(admin.TabularInline):
+    model = Kemia
+    fk_name = 'olaj'
+    extra=0
+
 class OlajAdmin(admin.ModelAdmin):
-    inlines = [ForgalmazasAdmin, HatasAdmin]
+    inlines = [ForgalmazasAdmin, HatasAdmin, KemiaAdmin]
 
 class HozzavaloAdmin(admin.TabularInline):
     model = Hozzavalo
@@ -36,4 +41,6 @@ admin.site.register(Olaj, OlajAdmin)
 admin.site.register(Recept, ReceptAdmin)
 admin.site.register(Forgalmazas)
 admin.site.register(Hatas)
+admin.site.register(Kemia_focsoport)
+admin.site.register(Kemia_alcsoport)
 
