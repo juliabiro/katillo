@@ -33,7 +33,7 @@ class KemiaAdmin(admin.TabularInline):
     extra=0
 
 class TulajdonsagAdmin(admin.TabularInline):
-    model = AltalanosTulajdonsagok
+    model = AltalanosTulajdonsag
     fk_name='olaj'
     extra=0
 
@@ -53,4 +53,7 @@ admin.site.register(Forgalmazas)
 admin.site.register(Hatas)
 admin.site.register(Kemia_focsoport)
 admin.site.register(Kemia_alcsoport)
+admin.site.register(AltalanosTulajdonsagFajta)
+admin.site.register(TerapiasJavaslatFajta)
+
 

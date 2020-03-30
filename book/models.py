@@ -77,19 +77,28 @@ class Kemia(models.Model):
         verbose_name = 'Kémia'
         verbose_name_plural = 'Kémia'
 
-class AltalanosTulajdonsagok(models.Model):
+class AltalanosTulajdonsagFajta(models.Model):
     nev = models.CharField(max_length=200, verbose_name='Név')
-    erosseg = models.IntegerField(verbose_name='erősség')
     mese = models.TextField(blank=True)
-    olaj = models.ForeignKey('Olaj', on_delete=None)
     class Meta:
-        verbose_name = 'Áltlalános tulajdonság'
-        verbose_name_plural = 'Általános tulajdonságok'
+        verbose_name = 'Áltlalános tulajdonság fajta'
+        verbose_name_plural = 'Általános tulajdonság fajták'
+
+class AltalanosTulajdonsag(models.Model):
+    alttul = models.ForeignKey('AltalanosTulajdonsagFajta', on_delete=None, verbose_name = 'Általános tulajdonság')
+    erosseg = models.IntegerField(verbose_name='erősség')
+    olaj = models.ForeignKey('Olaj', on_delete=None)
+
+class TerapiasJavaslatFajta(models.Model):
+    nev = models.CharField(max_length=200, verbose_name='Név')
+    mese = models.TextField(blank=True)
+    class Meta:
+        verbose_name = 'Terápiás javaslat fajta'
+        verbose_name_plural = 'Terápiás javaslat fajták'
 
 class TerapiasJavaslat(models.Model):
-    nev = models.CharField(max_length=200, verbose_name='Név')
+    terjav = models.ForeignKey('TerapiasJavaslatFajta', on_delete=None, verbose_name='Terápiás Javaslat')
     erosseg = models.IntegerField(verbose_name='erősség')
-    mese = models.TextField(blank=True)
     olaj = models.ForeignKey('Olaj', on_delete=None)
     class Meta:
         verbose_name = 'Terápiás javaslat'
