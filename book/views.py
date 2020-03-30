@@ -1,23 +1,41 @@
 from django.shortcuts import render, redirect
-from .models import Olaj, Recept, Forgalmazo, Forgalmazas, Hozzavalo, Hatas
+from .models import * 
 
 # Create your views here.
 
 def olaj(request, pk):
     if request.user.is_authenticated:
         olaj = Olaj.objects.get(pk=pk)
+        data = {
+            'olaj': olaj,
+            'kemia': [],
+            'altalanos_tulajdonsagok': [],
+            'terapias_javasatok':[],
+            'hatasoj':[],
+            'receptek':[],
+            'termekek':[],
+        }
+
         hozzavalok = Hozzavalo.objects.filter(olaj__id=pk)
         receptek = set()
-
         # I'm sure there is a more elegant way to do this, but i can fix that later
         for h in hozzavalok:
             for r in Recept.objects.filter(pk=h.recept.id):
                 receptek.add(r)
-        forgalmazok = Forgalmazas.objects.filter(olaj__id=pk)
+        data['receptek'] = receptek
+        data['termekek'] = Forgalmazas.objects.filter(olaj__id=pk)
+        kemiak = Kemia.objects.filter(olaj__id=pk)
+        data['kemiak'] = [{'focsoport': k.alcsoport.focsoport.nev,
+                           'alcsoport': k.alcsoport.nev,
+                           'szazalek': k.szazalek} for k in kemiak]
+        alttul = AltalanosTulajdonsag.objects.filter(olaj__id=pk).order_by('-erosseg')
+        data['altalanos_tulajdonsagok'] = [ {
+            'tulajdonsag': t.alttul.nev,
+            'erosseg': t.erosseg
+        } for t in alttul]
 
-        return render(request, 'book/olaj.html', {'olaj': olaj,
-                                                'receptek': receptek,
-                                                'forgalmazok': forgalmazok})
+
+        return render(request, 'book/olaj.html', data)
     else:
         return redirect('/admin/login')
 

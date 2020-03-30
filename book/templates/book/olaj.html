@@ -4,6 +4,15 @@
         <img src="{{olaj.kep}}" width="300">
         <p>{{olaj.mese}}</p>
 
+        <h3>Adatok</h3>
+        <h4>Kémia</h4>
+        {% for k in kemiak %}
+        {{k.focsoport}}:{{k.alcsoport}}  {{k.szazalek}} %
+        {% endfor %}
+        <h4>Általános tulajdonságok</h4>
+        {% for a in altalanos_tulajdonsagok %}
+        <b>{{a.erosseg}}*</b> {{ a.tulajdonsag }} </br> 
+        {% endfor %}
         <h3>Receptek</h3>
         {% for r in receptek %}
         <h4> <a href="/receptek/{{r.id}}">{{r.name}}</a></h4>
