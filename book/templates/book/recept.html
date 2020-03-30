@@ -3,16 +3,13 @@
         <h1>{{recept.name}}</h1>
 
         <p> {{recept.notes}}</p>
-        <h3> Hatások </h3>
-        {% for h in hatasok %}
-        {{h.name}}
-        {{h.korosztaly}}
-        {{h.megjegyzesek}}
-        {% endfor %}
+        {{recept.tipus}}
+        <h3> Hatás </h3>
+        {{recept.hatas}}
 
         <h3>Hozzávalók</h3>
         {% for h in hozzavalok %}
-        <a href="/olajok/{{h.olaj.id}}">{{h.olaj.name}}</a>  {{h.mennyiseg}} </br>
+        <a href="/olajok/{{h.olaj.id}}">{{h.olaj.nev}}</a>  {{h.mennyiseg}}{{h.mertekegyseg}} </br>
         {% endfor %}
     </body>
 </html>
