@@ -11,18 +11,12 @@ def olaj(request, pk):
             'kemia': [],
             'altalanos_tulajdonsagok': [],
             'terapias_javasatok':[],
-            'hatasoj':[],
+            'hatasok':[],
             'receptek':[],
             'termekek':[],
         }
 
         hozzavalok = Hozzavalo.objects.filter(olaj__id=pk)
-        receptek = set()
-        # I'm sure there is a more elegant way to do this, but i can fix that later
-        for h in hozzavalok:
-            for r in Recept.objects.filter(pk=h.recept.id):
-                receptek.add(r)
-        data['receptek'] = receptek
         data['termekek'] = Forgalmazas.objects.filter(olaj__id=pk)
         kemiak = Kemia.objects.filter(olaj__id=pk)
         data['kemiak'] = [{'focsoport': k.alcsoport.focsoport.nev,
@@ -34,6 +28,24 @@ def olaj(request, pk):
             'erosseg': t.erosseg
         } for t in alttul]
 
+        terjav = TerapiasJavaslat.objects.filter(olaj__id=pk).order_by('-erosseg')
+        data['terapias_javasatok'] = [{
+            'tulajdonsag': t.terjav,
+            'erosseg':t.erosseg
+        }for t in terjav]
+
+        hatasok = Hatas.objects.filter(olaj__id=pk)
+        data['hatasok'] =[ {
+            'nev': h.name,
+            'celcsoport': h.celcsoport,
+            'notes': h.megjegyzesek
+        } for h in hatasok]
+        receptek = set()
+        # I'm sure there is a more elegant way to do this, but i can fix that later
+        for h in hozzavalok:
+            for r in Recept.objects.filter(pk=h.recept.id):
+                receptek.add(r)
+        data['receptek'] = receptek
 
         return render(request, 'book/olaj.html', data)
     else:

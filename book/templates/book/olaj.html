@@ -1,27 +1,64 @@
 <html>
     <body>
-        <h1>{{olaj.name}}</h1>
-        <img src="{{olaj.kep}}" width="300">
+        <h1>{{olaj.magyar_nev}}</h1>
+        <p><i>{{olaj.latin_nev}}</i> </p>
+        <img src="{{olaj.kep}}" height="200">
         <p>{{olaj.mese}}</p>
 
+        <b>típus: {{olaj.tipus}}</b></br>
+        <b>jegy: {{olaj.jegy}}</b>
         <h3>Adatok</h3>
-        <h4>Kémia</h4>
+        <table>
+            <tr>
+                <td>
+            <h4>Kémia</h4>
         {% for k in kemiak %}
         {{k.focsoport}}:{{k.alcsoport}}  {{k.szazalek}} %
-        {% endfor %}
+            {% endfor %}
+            <br>
+         fajsúly: {{olaj.fajsuj}}
+                    
+                </td>
+            <td>
         <h4>Általános tulajdonságok</h4>
         {% for a in altalanos_tulajdonsagok %}
         <b>{{a.erosseg}}*</b> {{ a.tulajdonsag }} </br> 
         {% endfor %}
+            </td>
+            <td>
+        <h4>Terápiás javaslatok</h4>
+        {% for a in terapias_javasatok %}
+        <b>{{a.erosseg}}*</b> {{ a.tulajdonsag }} </br> 
+        {% endfor %}
+            </td>
+                </tr>
+        </table>
+
+
+        <h3>Hatások</h3>
+        {% for h in hatasok %}
+        {{h.nev}}     korosztály: {{h.celcsoport}} ({{h.notes}})
+        {% endfor %}
+
         <h3>Receptek</h3>
         {% for r in receptek %}
         <h4> <a href="/receptek/{{r.id}}">{{r.name}}</a></h4>
         {% endfor %}
 
         <h3>Termékek</h3>
-        {% for f in forgalmazok %}
-        <a href="/forgalmazok/{{f.id}}">  {{f.termeknev}}  {{f.kiszereles}} {{f.ar}} </a> </br>
-        {% endfor %}
+        <table>
+            <tr>
+                <td>Termék</td>
+                <td>Kiszerelés</td>
+                <td>Ár</td>
+                <td>Cseppszám</td>
+            </tr>
 
+            {% for f in termekek %}
+            <tr>
+                <td> <a href="/forgalmazok/{{f.id}}">{{f.termeknev}}({{f.tipus}})</a></td> <td>   {{f.kiszereles}}{{f.mertekegyseg}}</td> <td> {{f.ar}} Ft</td>  <td>{{f.cseppszam}}</td> 
+        {% endfor %}
+            </tr>
+        </table>
     </body>
 </html>
