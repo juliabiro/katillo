@@ -66,7 +66,7 @@ class Kemia_alcsoport(models.Model):
     def _focsoport(self):
         return self.focsoport.nev
     def __str__(self):
-        return self.nev+" ("+self._focsoport()+")"
+        return self._focsoport()+':'+self.nev
 
 class Kemia(models.Model):
     alcsoport = models.ForeignKey('Kemia_alcsoport', on_delete=None, verbose_name='Kémia')
@@ -115,8 +115,8 @@ class Hatas(models.Model):
     def __str__(self):
         return self.name +":"+ self.celcsoport
     class Meta:
-            verbose_name = 'Hatás'
-            verbose_name_plural = 'Hatások'
+            verbose_name = 'Összetevő Hatás'
+            verbose_name_plural = 'Összetevő Hatások'
 
 
 class Olaj(models.Model):

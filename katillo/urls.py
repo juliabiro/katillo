@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from book.admin import beszerzes_admin, recept_admin, tudas_admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('beszerzes_admin/', beszerzes_admin.urls),
+    path('tudas_admin/', tudas_admin.urls),
+    path('recept_admin/', recept_admin.urls),
     path('', include('book.urls')),
 ]
 admin.site.site_header = "Kati illóolajas könyve"

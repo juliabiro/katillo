@@ -1,6 +1,29 @@
 from django.contrib import admin
 from .models import *
 
+class BeszerzesAdminSite(admin.AdminSite):
+    site_header = "Beszerzési admin"
+    site_title = "Beszerzési admin"
+    index_title = "Beszerzési admin"
+
+beszerzes_admin = BeszerzesAdminSite(name='beszerzes_admin')
+
+class TudasAdminSite(admin.AdminSite):
+    site_header = "Tudás admin"
+    site_title = "Tudás admin"
+    index_title = "Tudás admin"
+
+tudas_admin = TudasAdminSite(name='tudas_admin')
+
+class ReceptAdminSite(admin.AdminSite):
+    site_header = "Recept admin"
+    site_title = "Recept admin"
+    index_title = "Recept admin"
+
+recept_admin = TudasAdminSite(name='recept_admin')
+
+
+
 class ForgalmazasAdmin(admin.TabularInline):
     model = Forgalmazas
     fk_name = 'olaj'
@@ -46,14 +69,13 @@ class OlajAdmin(admin.ModelAdmin):
     inlines = [KemiaAdmin, TulajdonsagAdmin, TerapiasJavaslatAdmin, HatasAdmin, ForgalmazasAdmin]
 
 # Register your models here.
-admin.site.register(Forgalmazo, ForgalmazoAdmin)
-admin.site.register(Olaj, OlajAdmin)
-admin.site.register(Recept, ReceptAdmin)
-admin.site.register(Forgalmazas)
-admin.site.register(Hatas)
-admin.site.register(Kemia_focsoport)
-admin.site.register(Kemia_alcsoport)
-admin.site.register(AltalanosTulajdonsagFajta)
-admin.site.register(TerapiasJavaslatFajta)
+beszerzes_admin.register(Forgalmazo, ForgalmazoAdmin)
+beszerzes_admin.register(Forgalmazas)
+tudas_admin.register(Kemia_focsoport)
+tudas_admin.register(Kemia_alcsoport)
+tudas_admin.register(AltalanosTulajdonsagFajta)
+tudas_admin.register(TerapiasJavaslatFajta)
+recept_admin.register(Olaj, OlajAdmin)
+recept_admin.register(Recept, ReceptAdmin)
 
 
